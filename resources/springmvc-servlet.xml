@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--导入配置文件-->
+    <import resource="classpath:applicationContext-mybatis.xml"/>
+    <!--1.开启注解扫描-->
+    <context:component-scan base-package="com.app.controller"/>
+    <!--2.开启注解驱动-->
+    <mvc:annotation-driven />
+
+    <!--3.视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--1.前缀-->
+        <property name="prefix" value="WEB-INF/jsp/"/>
+        <!--2.后缀-->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--4.静态资源放行-方法1-->
+    <mvc:resources location="/statics/" mapping="/statics/**"/>
+
+    <!--4.静态资源放行-方法2-->
+    <!--<mvc:default-servlet-handler />-->
+
+    <!--文件上传配置-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="500000"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <!--解决JSON所出现的中文乱码问题-->
+    <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>    
