@@ -32,6 +32,7 @@
       </div>
       <div>
       <a href="dev/login" class="btn btn-link">开发者平台 入口</a>
+          <h1>朋友我来过</h1>
       </div>
     </div>
   </body>
